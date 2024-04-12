@@ -35,6 +35,10 @@ class RestaurantScreen extends StatelessWidget {
           future: paginateRestaurant(),
           builder: (context, AsyncSnapshot<List> snapshot){
             print(snapshot.data);
+            if (!snapshot.hasData) {
+              return Container();
+            }
+            return ListView.separated(itemBuilder: itemBuilder, separatorBuilder: separatorBuilder, itemCount: itemCount)
             return RestaurantCard(
               image: Image.asset(
                 'asset/img/food/ddeok_bok_gi.jpg',
