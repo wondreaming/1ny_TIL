@@ -12,17 +12,47 @@
     <button>입력</button>
     <script>
       const number = parseInt(prompt("몇 명이 참가하나요?"), 10);
-      console.log("number", number);
-      alert(number);
-      const yesOrNo = confirm("맞나요?");
-      console.log(yesOrNo);
       const $input = document.querySelector("input");
+      const $button = document.querySelector("button");
+      const $word = document.querySelector("#word");
+      const $order = document.querySelector("#order");
 
-      $input.addEventListener("input", function (evelnt) {
+      let word; // 제시어
+      let newWord; // 새로 입력한 단어
+
+      // alert(number);
+      // const yesOrNo = confirm("맞나요?");
+      // console.log("number", number);
+      // console.log(yesOrNo);
+
+      $input.addEventListener("input", function (event) {
+        newWord = event.target.value;
         console.log("글자 입력", event.target.value);
       });
-      document.querySelector("button").addEventListener("click", function () {
-        console.log("클릭함");
+
+      $button.addEventListener("click", function () {
+        console.log(newWord);
+        if (!word || word.at(-1) == newWord[0]) {
+          word = newWord;
+          $word.textContent = word;
+          const order = parseInt($order.textContent, 10); // 현재 순서
+          if (order + 1 > number) {
+            $order.textContent = 1;
+          } else {
+            $order.textContent = order + 1;
+          }
+        } else {
+          // 탈락
+          alert("탈락!");
+          const order = parseInt($order.textContent, 10); // 현재 순서
+          if (order + 1 > number) {
+            $order.textContent = 1;
+          } else {
+            $order.textContent = order + 1;
+          }
+        }
+        $input.value = "";
+        $input.focus();
       });
     </script>
   </body>

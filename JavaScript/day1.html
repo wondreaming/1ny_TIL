@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <h1 id="hello">안녕하세요</h1>
+    <h1 id="hi">JS 고수에요</h1>
+    <br />
+    <div class="box">
+      <span>
+        Holy guacamole! You should check in on some of those fields below.
+      </span>
+      <br />
+      <button id="close">닫기</button>
+    </div>
+    <br />
+    <button id="button">띄우기</button>
+
+    <script>
+      document.querySelector("#hello").textContent = "안녕";
+      document.querySelector("#hello").style.fontSize = "16px";
+      document.querySelector("#button").addEventListener("click", function () {
+        console.log("클릭됨");
+        document.querySelector(".box").style.display = "block";
+      });
+      document.querySelector("#close").addEventListener("click", () => {
+        document.querySelector(".box").style.display = "none";
+      });
+      document.getElementById("hi").innerHTML = "JS 초보에요";
+    </script>
+  </body>
+</html>
