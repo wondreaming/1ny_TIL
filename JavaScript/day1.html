@@ -18,8 +18,15 @@
       <button id="close">닫기</button>
     </div>
     <br />
+    <div class="box">
+      <span></span>
+      <br />
+      <button id="close2">닫기</button>
+    </div>
+    <br />
     <button id="button">띄우기</button>
-
+    <button id="button1">버튼1</button>
+    <button id="button2">버튼2</button>
     <script>
       document.querySelector("#hello").textContent = "안녕";
       document.querySelector("#hello").style.fontSize = "16px";
@@ -31,6 +38,20 @@
         document.querySelector(".box").style.display = "none";
       });
       document.getElementById("hi").innerHTML = "JS 초보에요";
+
+      let add = (a, b) => {
+        return a + b;
+      };
+
+      let openAlert = (id, innerHTML) => {
+        document.querySelector(id).addEventListener("click", function () {
+          document.querySelectorAll(".box")[1].style.display = "block";
+          document.querySelectorAll("div span")[1].innerHTML = innerHTML;
+        });
+      };
+
+      openAlert("#button1", "아이디 입력하세요");
+      openAlert("#button2", "비밀번호 입력하세요");
     </script>
   </body>
 </html>

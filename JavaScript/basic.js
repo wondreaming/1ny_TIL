@@ -11,3 +11,5 @@ console.log("hello wordl");
 
 // 개발을 좋아해서 뭘 했는 지 꼭 적기
 // 스토리
+// 백틱은 줄 바꿈을 할 수 있다
+console.log(typeof "an");
