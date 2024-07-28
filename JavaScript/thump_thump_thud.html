@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>쿵쿵따 게임</title>
+  </head>
+  <body>
+    <h1>쿵쿵따 게임</h1>
+    <p><span id="order"></span>번째 참가자</p>
+    <p>제시어 : <strong id="word"></strong></p>
+    <input type="text" /> <button id="done">완료</button>
+
+    <script>
+      const $order = document.querySelector("#order");
+      const $word = document.querySelector("#word");
+      const $done = document.querySelector("#done");
+      const $input = document.querySelector("input");
+
+      let word = "";
+      let newWord = "";
+      let order = 1;
+
+      let result = prompt("참가자가 몇 명인가요");
+      console.log(result);
+      if (result) {
+        let number = parseInt(result, 10);
+      } else {
+        window.close();
+      }
+
+      $order.innerHTML = order;
+      $input.addEventListener("input", function (event) {
+        newWord = event.target.value;
+      });
+
+      $done.addEventListener("click", function () {
+        if (
+          (!word && newWord.length === 3) ||
+          (newWord[0] === word.at(-1) && newWord.length === 3)
+        ) {
+          word = newWord;
+          $word.innerHTML = word;
+          if (order < result) {
+            order++;
+          } else {
+            order = 1;
+          }
+          $order.innerHTML = order;
+          3;
+        } else {
+          alert("틀렸습니다.");
+        }
+
+        $input.value = "";
+        $input.focus();
+      });
+    </script>
+    <!-- 
+  <script>
+    const $order = document.querySelector("#order");
+    const $word = document.querySelector("#word");
+    const $done = document.querySelector("#done");
+    const $input = document.querySelector("#input-word");
+
+    let currentWord = "";
+    let newWord = "";
+    let order = 1;
+    let numberOfPlayers = 0;
+
+    let result = prompt("참가자가 몇 명인가요");
+    if (result) {
+      numberOfPlayers = parseInt(result, 10);
+      if (isNaN(numberOfPlayers) || numberOfPlayers < 1) {
+        alert("올바른 숫자를 입력하세요.");
+        window.close();
+      }
+    } else {
+      alert("참가자 수가 입력되지 않았습니다.");
+      window.close();
+    }
+
+    $order.innerHTML = order;
+    $input.addEventListener("input", function (event) {
+      newWord = event.target.value;
+    });
+
+    $done.addEventListener("click", function () {
+      if (
+        (!currentWord && newWord.length === 3) ||
+        (newWord[0] === currentWord.at(-1) && newWord.length === 3)
+      ) {
+        currentWord = newWord;
+        $word.innerHTML = currentWord;
+        order = order < numberOfPlayers ? order + 1 : 1;
+        $order.innerHTML = order;
+      } else {
+        alert("틀렸습니다. 세 글자 단어를 입력하고, 앞 단어의 마지막 글자로 시작해야 합니다.");
+      }
+
+      $input.value = "";
+      $input.focus();
+    });
+  </script> -->
+  </body>
+</html>

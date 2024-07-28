@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>끝말잇기</title>
+  </head>
+  <body>
+    <p><span id="order"></span>번째 참가자</p>
+    <p>제시어 : <span id="word"></span></p>
+    <input type="text" />
+    <button id="input">입력</button>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      let allCount = parseInt(prompt("몇 명이 참가하나요?"), 10); // 창이 뜸, 입력이 string으로 됨
+      alert(allCount); // 경고창
+      let yesOrNo = confirm("맞나요?"); // 확인창 true or false의 값을 받을 수 있음
+
+      let order = 1;
+      let word = "";
+      let newWord = "";
+      $("#order").html(order);
+
+      $("input").on("input", function (event) {
+        newWord = event.target.value;
+        console.log(newWord);
+      });
+
+      $("#input").on("click", function () {
+        if (word === "" || word.at(-1) === newWord[0]) {
+          word = newWord;
+          $("#word").html(word);
+          order++; // 데이터를 바꾸고 화면을 바꾼다.
+          $("#order").html(order);
+          $("input").value = "";
+          $("input").focus();
+        } else {
+          alert("틀렸습니다");
+          $("input").value = "";
+          $("input").focus();
+        }
+      });
+    </script>
+  </body>
+</html>
