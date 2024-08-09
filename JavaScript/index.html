@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <h1 id="hello">안녕하세요</h1>
+    <h1 id="hi">JS 초보에요</h1>
+
+    <div class="alert-box">
+      알림창
+      <button id="close">닫기</button>
+    </div>
+    <button id="open">버튼</button>
+    <script>
+      const $hello = document.getElementById("hello");
+      const $hi = document.getElementById("hi");
+      const $alert_box = document.querySelector(".alert-box");
+      const $open = document.querySelector("#open");
+      const $close = document.querySelector("#close");
+
+      $hello.innerHTML = "안녕";
+      $hello.style.color = "red";
+      $hello.style.fontSize = "16px";
+      $hi.innerText = "JS 고수에요";
+      // document.querySelector("#hi").innerText = "JS 고수에요";
+      $open.addEventListener("click", () => {
+        $alert_box.classList.add("show");
+      });
+      $close.addEventListener("click", () => {
+        $alert_box.classList.remove("show");
+      });
+
+      // onclick="document.getElementsByClassName('alert-box')[0].style.display = 'none'"
+    </script>
+  </body>
+</html>

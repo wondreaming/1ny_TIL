@@ -10,10 +10,6 @@
   display: none;
 }
 
-.show {
-  display: block;
-}
-
 .black-bg {
   width: 100%;
   height: 100%;
@@ -33,4 +29,16 @@
 
 .show-modal {
   max-height: 500px;
+}
+
+.alert-box {
+  display: none;
+  background-color: skyblue;
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+}
+
+.show {
+  display: block;
 }

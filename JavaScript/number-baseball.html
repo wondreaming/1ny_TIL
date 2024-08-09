@@ -1,0 +1,163 @@
+<!-- 1. 숫자를 뽑는다
+2. 숫자 입력할 변수 생성
+3. 숫자 한자리 입력
+4. 총 4개 입력하면
+5. 엔터 누르면
+6. 검사진행
+7. 각 자리를 돌면서 
+8. strike, ball, homerun인지 판단
+9.homerun 전까지 2-8반복
+10 10초과이면 탈락 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>숫자야구</title>
+  </head>
+  <body>
+    <form id="form">
+      <!-- required를 적으면 꼭 값을 넣어야함 -->
+      <input required type="text" id="input" />
+      <button>확인</button>
+    </form>
+    <div id="logs"></div>
+
+    <script>
+      const $form = document.querySelector("#form");
+      const $logs = document.querySelector("#logs");
+      const $input = document.querySelector("#input");
+
+      // 랜덤한 4자리 숫자 생성
+      let random = "";
+      while (random.length < 4) {
+        let num = Math.floor(Math.random() * 9 + 1);
+        if (!random.includes(num)) {
+          random += num;
+        }
+      }
+
+      console.log(random);
+
+      // 입력한 값을 보관하는 배열
+      const tries = [];
+      let out = 0;
+      const checkInput = value => {
+        if (value.length !== 4) {
+          alert("4자리 값을 입력해주세요");
+        } else if (new Set(value).size !== 4) {
+          alert("중복되지 않은 값을 입력해주세요");
+        } else if (tries.includes(value)) {
+          alert("이미 시도한 값입니다");
+        } else {
+          return true;
+        }
+      };
+
+      const checkResult = value => {
+        if (tries.length < 10 && out < 2) {
+          if (value === random) {
+            $logs.appendChild(document.createTextNode(`정답입니다`));
+          } else {
+            let strike = 0;
+            let ball = 0;
+            for (let i = 0; i < random.length; i++) {
+              if (value[i] === random[i]) {
+                strike++;
+                ball++;
+              } else if (random.includes(value[i])) {
+                ball++;
+              }
+            }
+            console.log(out);
+            tries.push(value);
+            $input.value = "";
+            $input.focus();
+            if (strike === 0 || ball === 0) {
+              out++;
+              $logs.appendChild(
+                document.createTextNode(
+                  `입력한 값은 ${value}입니다 : ${out} 아웃!`
+                )
+              );
+            } else {
+              $logs.appendChild(
+                document.createTextNode(
+                  `입력한 값은 ${value}입니다 : ${strike} 스트라이크 ${ball} 볼`
+                )
+              );
+            }
+            $logs.appendChild(document.createElement("br"));
+          }
+        } else {
+          $logs.appendChild(
+            document.createTextNode(`패배! 정답은 ${random}입니다`)
+          );
+        }
+      };
+      $form.addEventListener("submit", event => {
+        event.preventDefault();
+        let value = event.target[0].value;
+        let valid = checkInput(value);
+        if (!valid) {
+          $input.value = "";
+        } else {
+          checkResult(value);
+        }
+      });
+      // // 랜덤한 숫자 뽑기
+      // let random = "";
+
+      // while (random.length < 4) {
+      //   let num = Math.floor(Math.random() * 9 + 1);
+      //   if (!random.includes(num)) {
+      //     random += num;
+      //   }
+      // }
+
+      // console.log(random);
+      // // 몇번 시도했는 지 기록
+      // let count = 0;
+      // // 입력한 숫자 기록
+      // const tries = [];
+      // // 검사하는 코드
+      // function checkInput(input) {
+      //   if (input.length !== 4) {
+      //     return alert("4자리 숫자를 입력해주세요");
+      //   } else if (new Set(input).size !== 4) {
+      //     return alert("중복된 숫자가 있습니다.");
+      //   } else if (tries.includes(input)) {
+      //     return alert("이미 시도한 값입니다.");
+      //   } else {
+      //     return true;
+      //   }
+      // }
+
+      // $form.addEventListener("submit", event => {
+      //   event.preventDefault(); // 기본 동작 막기 form의 기본 동작은 새로고침인데, 기본 동작을 막으면서 새로고침이 안됨
+      //   const value = event.target[0].value;
+      //   $input.value = "";
+      //   const valid = checkInput(value);
+      //   console.log("제출함", event);
+      //   if (valid) {
+      //     if (count <= 10) {
+      //       if (random === value) {
+      //         $logs.textContent = "홈런";
+      //         return;
+      //       } else {
+      //         count++;
+      //         tries.push(value);
+      //       }
+      //     } else {
+      //       $logs.appendChild(
+      //         document.createTextNode(`패배! 정답은 ${random}`)
+      //       );
+      //     }
+      //   } else {
+      //     // alert로 인해서, undefined 반환되면 false 입력
+      //   }
+      // });
+    </script>
+  </body>
+</html>

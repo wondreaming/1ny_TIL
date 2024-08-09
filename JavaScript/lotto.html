@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로또 추첨기</title>
+    <style>
+      .ball {
+        display: inline-block;
+        border: 1px solid black;
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        text-align: center;
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <input type="text" placeholder="숫자 6개를 쉼표로 구분해 입력하세요" />
+      <button>추첨</button>
+    </form>
+    <div id="result">당첨 숫자:</div>
+    <div id="bonus">보너스 숫자:</div>
+
+    <script>
+      const $form = document.querySelector("#form");
+      const $result = document.querySelector("#result");
+      const $bonus = document.querySelector("#bonus");
+
+      let result = [];
+      let bonus = [];
+      let candidates = [];
+
+      const setTimeoutPromise = value => {
+        setTimeout(function () {}, value);
+      };
+      $form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const value = event.target[0].value;
+        if (!value.trim()) {
+          alert("숫자를 입력하세요");
+        } else if (value.split(",").length !== 6) {
+          alert("숫자를 6자리 입력하세요");
+        } else if (new Set(value.split(",")).size !== 6) {
+          alert("중복된 숫자를 입력했습니다.");
+        } else if (value.split(",").find(value => value > 45 || value < 1)) {
+          alert("값이 범위를 벗어났습니다.");
+        }
+        const candidate = new Array(45)
+          .fill(0)
+          .map((element, index) => index + 1);
+
+        for (let i = 0; i < 7; i++) {
+          let num = Math.floor(Math.random() * candidate.length);
+          console.log(candidate[num]);
+          candidates.push(candidate[num]);
+          // 중복된 숫자가 들어간다
+        }
+        bonus = candidates[6];
+        result = candidates.splice(0, 6).sort((a, b) => a - b);
+        console.log(result, bonus);
+        for (let i = 0; i < result.length; i++) {
+          setTimeout(function () {
+            const $ball = document.createElement("div");
+            $ball.classList.add("ball");
+            $ball.textContent = result[i];
+            $result.appendChild($ball);
+          }, (i + 1) * 1000);
+        }
+        setTimeout(function () {
+          const $ball = document.createElement("div");
+          $ball.classList.add("ball");
+          $ball.textContent = bonus;
+          $bonus.appendChild($ball);
+        }, 7000);
+      });
+    </script>
+  </body>
+</html>
